@@ -3,7 +3,7 @@
 
 <template>
     <footer>
-        FOOTER
+<!--        FOOTER-->
     </footer>
 </template>
 

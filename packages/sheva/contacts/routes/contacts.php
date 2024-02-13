@@ -5,4 +5,4 @@ use Sheva\Contacts\Http\Controllers\EmployeeController;
 
 
 Route::resource('employees', EmployeeController::class)
-    ->only(['index', 'store', 'destroy']);
+    ->only(['index', 'store']);
