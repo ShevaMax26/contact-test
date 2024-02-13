@@ -2,7 +2,6 @@
 
 namespace Sheva\Contacts;
 
-use Sheva\Cart\Contracts\CartsStorage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,14 +14,13 @@ class ContactServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->configureRoutes();
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     protected function configureRoutes(): void
     {
         Route::group([
-            'domain' => config('contacts.domain'),
             'prefix' => config('contacts.prefix'),
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/../routes/contacts.php');

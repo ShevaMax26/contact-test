@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('phones', function (Blueprint $table) {
-            $table->uuid()->unique();
+            $table->id();
             $table->unsignedBigInteger('phone');
             $table->foreignIdFor(\Sheva\Contacts\Models\Employee::class)
                 ->constrained()

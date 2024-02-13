@@ -3190,7 +3190,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/sheva/contacts",
-                "reference": "cdafc6699282432fc2aedb6cd693329ca60e4d2c"
+                "reference": "4a51789150c5d45b1c32d8253ce753fd57d0f35c"
             },
             "require": {
                 "php": "^8.2"
@@ -3205,7 +3205,9 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Sheva\\Contacts\\": "src"
+                    "Sheva\\Contacts\\": "src",
+                    "Sheva\\Contacts\\Database\\Factories\\": "database/factories/",
+                    "Sheva\\Contacts\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [
@@ -5719,16 +5721,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.10.1",
+            "version": "v3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "665069c452c30f64c07b6e7ede68c338b96678c7"
+                "reference": "60d3f5d6298a8b23028927302318856e50cbe59b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/665069c452c30f64c07b6e7ede68c338b96678c7",
-                "reference": "665069c452c30f64c07b6e7ede68c338b96678c7",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/60d3f5d6298a8b23028927302318856e50cbe59b",
+                "reference": "60d3f5d6298a8b23028927302318856e50cbe59b",
                 "shasum": ""
             },
             "require": {
@@ -5787,7 +5789,7 @@
             ],
             "support": {
                 "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
-                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.10.1"
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.10.2"
             },
             "funding": [
                 {
@@ -5799,7 +5801,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-12T14:22:59+00:00"
+            "time": "2024-02-13T09:14:41+00:00"
         },
         {
             "name": "fakerphp/faker",

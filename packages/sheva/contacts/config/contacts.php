@@ -1,6 +1,5 @@
 <?php
 
 return [
-    'domain' => null,
-    'prefix' => null,
+    'prefix' => 'api',
 ];

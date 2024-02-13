@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Sheva\Contacts\Database\Seeders;
 
-use App\Models\Employee;
-use App\Models\Phone;
 use Illuminate\Database\Seeder;
+use Sheva\Contacts\Models\Employee;
+use Sheva\Contacts\Models\Phone;
 
 class PhoneSeeder extends Seeder
 {
@@ -16,11 +16,12 @@ class PhoneSeeder extends Seeder
         $employees = Employee::all();
 
         foreach ($employees as $employee) {
-            Phone::factory([
-                'employee_id' => $employee->id
-            ])
-                ->count(random_int(1, 3))
-                ->create();
+            for ($i = 0; $i < random_int(1, 3); $i++) {
+                Phone::firstOrCreate([
+                    'phone' => mt_rand(100000000, 999999999),
+                    'employee_id' => $employee->id,
+                ]);
+            }
         }
     }
 }

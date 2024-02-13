@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Sheva\Contacts\Database\Seeders\EmployeeSeeder;
+use Sheva\Contacts\Database\Seeders\PhoneSeeder;
 
 class DatabaseSeeder extends Seeder
 {

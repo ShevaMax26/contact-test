@@ -6,7 +6,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Sheva\\Contacts\\": "src"
+            "Sheva\\Contacts\\": "src",
+            "Sheva\\Contacts\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "extra": {
