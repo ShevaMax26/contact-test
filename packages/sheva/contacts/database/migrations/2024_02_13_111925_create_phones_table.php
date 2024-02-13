@@ -4,17 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+return new class extends Migration {
+    public function up()
     {
         Schema::create('phones', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->unique();
             $table->unsignedBigInteger('phone');
-            $table->foreignIdFor(\App\Models\Employee::class)
+            $table->foreignIdFor(\Sheva\Contacts\Models\Employee::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
@@ -22,11 +18,11 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
+        if (!app()->isLocal()) {
+            return;
+        }
         Schema::dropIfExists('phones');
     }
 };

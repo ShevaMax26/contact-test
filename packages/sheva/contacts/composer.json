@@ -1,0 +1,20 @@
+{
+    "name": "sheva/contacts",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sheva\\Contacts\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sheva\\Contacts\\ContactServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}

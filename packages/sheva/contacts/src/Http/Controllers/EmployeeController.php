@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sheva\Contacts\Http\Controllers;
 
-use App\Http\Resources\EmployeeResource;
-use App\Models\Employee;
-use App\Models\Phone;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Sheva\Contacts\Http\Resources\EmployeeResource;
+use Sheva\Contacts\Models\Employee;
 
 class EmployeeController extends Controller
 {

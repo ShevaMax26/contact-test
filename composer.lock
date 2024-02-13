@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f28e1379e00834abb3aa029ed06a6216",
+    "content-hash": "cb2ba0ceb126d5efd316f882e1db9cb3",
     "packages": [
         {
             "name": "brick/math",
@@ -3183,6 +3183,38 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "sheva/contacts",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./packages/sheva/contacts",
+                "reference": "cdafc6699282432fc2aedb6cd693329ca60e4d2c"
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sheva\\Contacts\\ContactServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sheva\\Contacts\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/console",
@@ -8267,7 +8299,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sheva/contacts": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
