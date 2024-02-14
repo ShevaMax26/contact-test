@@ -67,23 +67,25 @@ function removePhoneField(index) {
                 <label for="surname" class="form__label">Введіть прізвище</label>
             </div>
             <div class="text-red-600 mb-5" v-if="form.errors.surname">{{ form.errors['surname'][0]}}</div>
-            <div v-for="(phone, index) in form.phones" :key="index" class="form__phones form-phones">
-                <div class="form__group form-phones__group">
-                    <input
-                        type="text"
-                        :id="'phones' + index"
-                        name="phones"
-                        class="form-input form__input"
-                        placeholder=" "
-                        v-model="form.phones[index]">
-                    <label :for="'phones' + index" class="form__label">Введіть номер телефону</label>
-                </div>
-                <div v-if="index === form.phones.length - 1" class="form-phones__icon form-phones__icon-yellow" @click.prevent="addPhoneField">
-                    <i class="fa-solid fa-plus"></i>
-                </div>
-                <div v-if="form.phones.length > 1" class="form-phones__icon form-phones__icon-red"
-                     @click.prevent="removePhoneField(index)">
-                    <i class="fa-solid fa-minus"></i>
+            <div v-for="(phone, index) in form.phones" :key="index" class="form-phones">
+                <div class="form__phones">
+                    <div class="form__group form-phones__group">
+                        <input
+                            type="text"
+                            :id="'phones' + index"
+                            name="phones"
+                            class="form-input form__input"
+                            placeholder=" "
+                            v-model="form.phones[index]">
+                        <label :for="'phones' + index" class="form__label">Введіть номер телефону</label>
+                    </div>
+                    <div v-if="index === form.phones.length - 1" class="form-phones__icon form-phones__icon-yellow" @click.prevent="addPhoneField">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div v-if="form.phones.length > 1" class="form-phones__icon form-phones__icon-red"
+                         @click.prevent="removePhoneField(index)">
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
                 </div>
                 <div class="text-red-600 mb-5" v-if="form.errors[`phones.${index}`]?.[0]">{{ form.errors[`phones.${index}`]?.[0] }}</div>
             </div>
