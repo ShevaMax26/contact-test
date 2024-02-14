@@ -179,5 +179,12 @@ class EmployeeSeeder extends Seeder
         foreach ($employees as $employee) {
             Employee::firstOrCreate($employee);
         }
+
+        for ($i = 1; $i <= 100; $i++) {
+            Employee::create([
+                'name' => fake()->firstName(),
+                'surname' => fake()->lastName(),
+            ]);
+        }
     }
 }

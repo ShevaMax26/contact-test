@@ -3,12 +3,10 @@
 namespace Sheva\Contacts\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Sheva\Contacts\Helpers\ClearPhone;
 use Sheva\Contacts\Http\Requests\Employee\EmployeeRequest;
 use Sheva\Contacts\Http\Resources\EmployeeResource;
 use Sheva\Contacts\Models\Employee;
-use Sheva\Contacts\Models\Phone;
 
 class EmployeeController extends Controller
 {

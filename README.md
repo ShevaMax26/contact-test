@@ -1,6 +1,9 @@
 ## <h2 style="color:#ba363f">Installation</h2>
 ``` 
     composer install
+    php artisan migrate:fresh --seed
+    npm install
+    npm run dev
 ```
 
 ## Dev tips
