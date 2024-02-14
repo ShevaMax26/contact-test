@@ -8,9 +8,8 @@ const props = defineProps(['employeeForm', 'url', 'method']);
 const form = ref(props.employeeForm);
 
 function createEmployee() {
-    form.value.phones = form.value.phones.filter(function (el) {
-        return el != null;
-    });
+    form.value.phones = form.value.phones.filter((el, index) => index === 0 || el !== null);
+
 
     axios[props.method](props.url, {
             'name': form.value.name,
@@ -47,7 +46,7 @@ function removePhoneField(index) {
 <template>
     <div class="form">
         <div class="form__head">
-            <h2 class="form__title">Створити нового користувача</h2>
+            <h2 class="form__title">Створити/Оновити користувача</h2>
             <a @click.prevent="createEmployee"
                class="form__submit"
             >

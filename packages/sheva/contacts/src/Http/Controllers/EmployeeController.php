@@ -16,7 +16,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::with('phones')
             ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            ->paginate(10);
 
         return [
             'employees' => EmployeeResource::collection($employees),

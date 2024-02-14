@@ -37,7 +37,10 @@ class EmployeeRequest extends FormRequest
             'surname.required' => 'Поле "Прізвище" є обов\'язковим.',
             'surname.string' => 'Поле "Прізвище" повинно бути рядком.',
             'phones.required' => 'Поле "Телефон" є обов\'язковим.',
+            'phones.*.required' => 'Поле "Телефон" є обов\'язковим.',
             'phones.array' => 'Поле "Телефон" повинно бути масивом.',
+            'phones.numeric' => 'Поле "Телефон" повинно бути числом.',
+            'phones.*.numeric' => 'Поле "Телефон" повинно бути числом.',
         ];
     }
 }

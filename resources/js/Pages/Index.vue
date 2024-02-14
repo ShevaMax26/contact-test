@@ -98,7 +98,7 @@ onMounted(() => {
 
 <template>
     <section class="employees">
-        <div class="container">
+        <div class="container mx-auto">
             <div class="employees__form">
                 <Form @added-new-employee="getEmployees"
                       :employeeForm="employeeForm"
@@ -114,11 +114,11 @@ onMounted(() => {
                     <th>Phone</th>
                     <th>Actions</th>
                 </tr>
-                <tr v-for="employee in employees" @click.prevent="showEmployee(employee.id)" class="cursor-pointer">
-                    <td>{{ employee.name }}</td>
-                    <td>{{ employee.surname }}</td>
-                    <td>
-                        <span v-for="phone in employee.phones">+{{ phone }}; </span>
+                <tr v-for="employee in employees" class="cursor-pointer">
+                    <td @click.prevent="showEmployee(employee.id)">{{ employee.name }}</td>
+                    <td @click.prevent="showEmployee(employee.id)">{{ employee.surname }}</td>
+                    <td @click.prevent="showEmployee(employee.id)">
+                        <span v-for="phone in employee.phones">0{{ phone }}; </span>
                     </td>
                     <td @click.prevent="deleteEmployee(employee.id)" class="hover:text-red-500">
                         <i class="fa-solid fa-trash-can cursor-pointer"></i>
