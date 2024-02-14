@@ -31,6 +31,17 @@ function getEmployees() {
         });
 }
 
+function deleteEmployee(id) {
+    axios.delete(`/api/employees/${id}`)
+        .then((res) => {
+            getEmployees()
+            console.log('Record deleted successfully', res);
+        })
+        .catch((error) => {
+            console.error('Error deleting record', error);
+        });
+}
+
 function showNewPage(page) {
     currentPage.value = page
     getEmployees()
@@ -76,11 +87,18 @@ onMounted(() => {
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Phone</th>
+                    <th>Actions</th>
                 </tr>
                 <tr v-for="employee in employees">
                     <td>{{ employee.name }}</td>
                     <td>{{ employee.surname }}</td>
                     <td><span v-for="phone in employee.phones">+{{ phone }}; </span></td>
+                    <td>
+                        <div class="flex gap-4">
+                            <i class="fa-solid fa-pen-to-square hover:text-blue-500 cursor-pointer"></i>
+                            <i @click.prevent="deleteEmployee(employee.id)" class="fa-solid fa-trash-can hover:text-red-500 cursor-pointer"></i>
+                        </div>
+                    </td>
                 </tr>
             </table>
             <div class="flex justify-around">
@@ -121,6 +139,7 @@ onMounted(() => {
     background-color: #04AA6D;
     color: white;
 }
+
 .employees {
     &__form {
         border: 1px solid #e6e6e6;

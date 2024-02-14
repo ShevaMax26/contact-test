@@ -42,4 +42,11 @@ class EmployeeController extends Controller
 
         return EmployeeResource::make($employee);
     }
+
+    public function destroy($id)
+    {
+        $employee = Employee::find($id);
+        $employee->delete();
+        return response()->json(['message' => 'Record deleted successfully.']);
+    }
 }
