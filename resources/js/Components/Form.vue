@@ -4,17 +4,14 @@ import IMask from 'imask';
 
 const emit = defineEmits(['addedNewEmployee']);
 
-const form = ref({
-    name: '',
-    surname: '',
-    phones: [''],
-    errors: [],
-});
+const props = defineProps(['employeeForm', 'url', 'method']);
+
+const form = ref(props.employeeForm);
 
 function createEmployee() {
     const nonEmptyPhones = form.value.phones.filter(phone => phone.trim() !== '');
 
-    axios.post('/api/employees', {
+    axios[props.method](props.url, {
             'name': form.value.name,
             'surname': form.value.surname,
             'phones': nonEmptyPhones,

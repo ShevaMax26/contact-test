@@ -43,7 +43,33 @@ class EmployeeController extends Controller
         return EmployeeResource::make($employee);
     }
 
-    public function destroy($id)
+    public function show(int $id)
+    {
+        $employee = Employee::find($id);
+        $employee->load('phones');
+
+        return EmployeeResource::make($employee);
+    }
+
+    public function update(StoreRequest $request, int $id)
+    {
+        $employee = Employee::find($id);
+        $data = $request->validated();
+
+        $employee->phones()->delete();
+
+        foreach ($data['phones'] as $phone) {
+            $employee->phones()->create([
+                'phone' => ClearPhone::clear($phone),
+            ]);
+        }
+
+        $employee->load('phones');
+
+        return EmployeeResource::make($employee);
+    }
+
+    public function destroy(int $id)
     {
         $employee = Employee::find($id);
         $employee->delete();

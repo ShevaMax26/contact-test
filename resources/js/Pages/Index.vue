@@ -4,9 +4,18 @@ import {ref, onMounted} from 'vue'
 import Form from "../Components/Form.vue";
 
 const employees = ref([]);
+
+const employeeForm = ref({
+    name: '',
+    surname: '',
+    phones: [''],
+    errors: [],
+});
 const total = ref();
 const currentPage = ref(1);
 const perPage = ref();
+const employeeUrl = ref('/api/employees');
+const employeeMethod = ref('post');
 
 function getEmployees() {
     replaceParamInUrl()
@@ -39,6 +48,22 @@ function deleteEmployee(id) {
         })
         .catch((error) => {
             console.error('Error deleting record', error);
+        });
+}
+
+function showEmployee(id) {
+    console.log(id);
+    axios.get(`/api/employees/${id}`)
+        .then((res) => {
+            let employee = res.data.data
+            employeeForm.value.name = employee.name
+            employeeForm.value.surname = employee.surname
+            employeeForm.value.phones = employee.phones
+            employeeUrl.value = `/api/employees/${id}`
+            employeeMethod.value = 'put'
+        })
+        .catch((error) => {
+            console.error(error);
         });
 }
 
@@ -79,7 +104,11 @@ onMounted(() => {
     <section class="employees">
         <div class="container">
             <div class="employees__form">
-                <Form @added-new-employee="getEmployees"/>
+                <Form @added-new-employee="getEmployees"
+                      :employeeForm="employeeForm"
+                      :url="employeeUrl"
+                      :method="employeeMethod"
+                />
             </div>
 
             <table id="customers" class="mb-6">
@@ -89,14 +118,17 @@ onMounted(() => {
                     <th>Phone</th>
                     <th>Actions</th>
                 </tr>
-                <tr v-for="employee in employees">
+                <tr v-for="employee in employees" @click.prevent="showEmployee(employee.id)" class="cursor-pointer">
                     <td>{{ employee.name }}</td>
                     <td>{{ employee.surname }}</td>
-                    <td><span v-for="phone in employee.phones">+{{ phone }}; </span></td>
+                    <td>
+                        <span v-for="phone in employee.phones">+{{ phone }}; </span>
+                    </td>
                     <td>
                         <div class="flex gap-4">
                             <i class="fa-solid fa-pen-to-square hover:text-blue-500 cursor-pointer"></i>
-                            <i @click.prevent="deleteEmployee(employee.id)" class="fa-solid fa-trash-can hover:text-red-500 cursor-pointer"></i>
+                            <i @click.prevent="deleteEmployee(employee.id)"
+                               class="fa-solid fa-trash-can hover:text-red-500 cursor-pointer"></i>
                         </div>
                     </td>
                 </tr>
