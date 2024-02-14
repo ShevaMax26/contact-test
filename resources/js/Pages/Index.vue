@@ -5,10 +5,12 @@ import Form from "../Components/Form.vue";
 
 const employees = ref([]);
 const total = ref();
-const currentPage = ref();
+const currentPage = ref(1);
 const perPage = ref();
 
 function getEmployees() {
+    replaceParamInUrl()
+
     axios.get('/api/employees', {
         params: {
             page: currentPage.value,
@@ -34,7 +36,30 @@ function showNewPage(page) {
     getEmployees()
 }
 
+function replaceParamInUrl() {
+    const currentUrl = new URL(window.location.href);
+    const params = currentUrl.searchParams;
+
+    if (currentPage.value) {
+        params.set('page', currentPage.value);
+    }
+
+    currentUrl.search = params.toString();
+    const updatedUrl = currentUrl.toString();
+    window.history.replaceState({}, '', updatedUrl);
+}
+
+function setParamsFromUrl() {
+    const currentUrl = new URL(window.location.href);
+    const params = currentUrl.searchParams;
+
+    if (params.get('page')) {
+        currentPage.value = params.get('page');
+    }
+}
+
 onMounted(() => {
+    setParamsFromUrl();
     getEmployees();
 });
 </script>
@@ -43,10 +68,10 @@ onMounted(() => {
     <section class="employees">
         <div class="container">
             <div class="employees__form">
-                <Form/>
+                <Form @added-new-employee="getEmployees"/>
             </div>
 
-            <table id="customers">
+            <table id="customers" class="mb-6">
                 <tr>
                     <th>Name</th>
                     <th>Surname</th>

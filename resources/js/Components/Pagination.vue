@@ -52,23 +52,5 @@ const paginationLinks = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-}
 
-.custom-pagination-item {
-    padding: 0.5rem 1rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    border-radius: 0.25rem;
-    background-color: #fff;
-}
-
-.custom-pagination-item-active {
-    background-color: #f53b49;
-    color: #fff;
-}
 </style>

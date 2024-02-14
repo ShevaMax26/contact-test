@@ -13,7 +13,9 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        $employees = Employee::with('phones')->paginate(5);
+        $employees = Employee::with('phones')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
         return [
             'employees' => EmployeeResource::collection($employees),
@@ -34,7 +36,10 @@ class EmployeeController extends Controller
                 'phone' => $phone,
             ]);
         }
-        return $employee;
+
+        $employee->load('phones');
+
+        return EmployeeResource::make($employee);
     }
 
     public function destroy(string $id)

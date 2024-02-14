@@ -1,28 +1,46 @@
 <script setup>
 import {ref, onMounted} from 'vue'
 
+const emit = defineEmits(['addedNewEmployee']);
+
 const form = ref({
     name: '',
     surname: '',
-    phones: [],
+    phones: [''],
     errors: [],
 });
 
 function createEmployee() {
+    const nonEmptyPhones = form.value.phones.filter(phone => phone.trim() !== '');
+
     axios.post('/api/employees', {
             'name': form.value.name,
             'surname': form.value.surname,
-            'phones': form.value.phones,
+            'phones': nonEmptyPhones,
         }
     )
         .then((res) => {
-            console.log(res.data);
             console.log('Employee created');
+            emit('addedNewEmployee');
+            form.value.name = '';
+            form.value.surname = '';
+            form.value.phones = [''];
+            form.value.errors = [];
         })
         .catch(error => {
             form.value.errors = error.response.data.errors
             console.error(form.value.errors);
         });
+}
+
+function addPhoneField() {
+    form.value.phones.push('');
+}
+
+function removePhoneField(index) {
+    if (form.value.phones.length > 1) {
+        form.value.phones.splice(index, 1);
+    }
 }
 </script>
 
@@ -38,7 +56,8 @@ function createEmployee() {
         </div>
         <div class="form__wrapper">
             <div class="form__group">
-                <input type="text" id="name" name="name" class="form-input form__input" placeholder=" " v-model="form.name">
+                <input type="text" id="name" name="name" class="form-input form__input" placeholder=" "
+                       v-model="form.name">
                 <label for="name" class="form__label">Введіть ім'я</label>
             </div>
             <div class="form__group">
@@ -46,18 +65,28 @@ function createEmployee() {
                        v-model="form.surname">
                 <label for="surname" class="form__label">Введіть прізвище</label>
             </div>
-            <div class="form__phones">
-                <div class="form__group">
-                    <input type="text" id="phones" name="phones" class="form-input form__input" placeholder=" "
-                           v-model="form.phones[0]">
-                    <label for="phones" class="form__label">Введіть номер телефону</label>
+            <div v-for="(phone, index) in form.phones" :key="index" class="form__phones form-phones">
+                <div class="form__group form-phones__group">
+                    <input
+                        type="text"
+                        :id="'phones' + index"
+                        name="phones"
+                        class="form-input form__input"
+                        placeholder=" "
+                        v-model="form.phones[index]">
+                    <label :for="'phones' + index" class="form__label">Введіть номер телефону</label>
                 </div>
-                <div class="form__submit form__phones-icon">+</div>
+                <div class="form-phones__icon form-phones__icon-yellow" @click.prevent="addPhoneField">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div v-if="form.phones.length > 1" class="form-phones__icon form-phones__icon-red"
+                     @click.prevent="removePhoneField(index)">
+                    <i class="fa-solid fa-minus"></i>
+                </div>
             </div>
         </div>
-        <div style="font-size: 16px; color: red; margin-bottom: 20px;" v-for="(error, field) in errors"
-             :key="field">
-            {{ form.errors[0] }}
+        <div style="font-size: 16px; color: red; margin-bottom: 20px;" v-for="(error, field) in form.errors">
+            {{ error[0] }}
         </div>
     </div>
 </template>
@@ -89,6 +118,7 @@ function createEmployee() {
         position: relative;
         height: 45px;
         margin-bottom: 20px;
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -141,14 +171,56 @@ function createEmployee() {
     &__phones {
         display: flex;
         gap: 20px;
-        &-icon {
-            font-size: 30px;
-            align-items: center;
-            display: flex;
-            width: 45px;
-            height: 45px;
-            justify-content: center;
-            padding: 0;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+}
+
+.form-phones {
+    &__icon {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 50%;
+        display: block;
+        transition: all 0.3s;
+
+        i {
+            width: 35px;
+            height: 35px;
+            text-align: center;
+            vertical-align: sub;
+        }
+    }
+
+    &__icon-yellow {
+        display: none;
+        background: $yellow;
+        color: $white;
+
+        &:hover {
+            background: $yellow-hover;
+        }
+    }
+
+    &__icon-red {
+        background: #d2592e;
+
+        &:hover {
+            background: #f34d12;
+        }
+    }
+
+    .form__group {
+        margin-bottom: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+
+        .form-phones__icon-yellow {
+            display: block;
         }
     }
 }
