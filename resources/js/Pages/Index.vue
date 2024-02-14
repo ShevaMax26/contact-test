@@ -8,7 +8,7 @@ const employees = ref([]);
 const employeeForm = ref({
     name: '',
     surname: '',
-    phones: [''],
+    phones: [null],
     errors: [],
 });
 const total = ref();
@@ -30,10 +30,6 @@ function getEmployees() {
             total.value = res.data.total;
             currentPage.value = res.data.currentPage;
             perPage.value = res.data.perPage;
-            console.log(employees.value);
-            console.log(total.value);
-            console.log(perPage.value);
-            console.log(currentPage.value);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -52,13 +48,13 @@ function deleteEmployee(id) {
 }
 
 function showEmployee(id) {
-    console.log(id);
     axios.get(`/api/employees/${id}`)
         .then((res) => {
             let employee = res.data.data
             employeeForm.value.name = employee.name
             employeeForm.value.surname = employee.surname
             employeeForm.value.phones = employee.phones
+            console.log(employeeForm.value.phones)
             employeeUrl.value = `/api/employees/${id}`
             employeeMethod.value = 'put'
         })
@@ -124,12 +120,8 @@ onMounted(() => {
                     <td>
                         <span v-for="phone in employee.phones">+{{ phone }}; </span>
                     </td>
-                    <td>
-                        <div class="flex gap-4">
-                            <i class="fa-solid fa-pen-to-square hover:text-blue-500 cursor-pointer"></i>
-                            <i @click.prevent="deleteEmployee(employee.id)"
-                               class="fa-solid fa-trash-can hover:text-red-500 cursor-pointer"></i>
-                        </div>
+                    <td @click.prevent="deleteEmployee(employee.id)" class="hover:text-red-500">
+                        <i class="fa-solid fa-trash-can cursor-pointer"></i>
                     </td>
                 </tr>
             </table>

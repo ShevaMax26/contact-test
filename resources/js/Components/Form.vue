@@ -1,6 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue'
-import IMask from 'imask';
+import {ref} from 'vue'
 
 const emit = defineEmits(['addedNewEmployee']);
 
@@ -9,12 +8,14 @@ const props = defineProps(['employeeForm', 'url', 'method']);
 const form = ref(props.employeeForm);
 
 function createEmployee() {
-    const nonEmptyPhones = form.value.phones.filter(phone => phone.trim() !== '');
+    form.value.phones = form.value.phones.filter(function (el) {
+        return el != null;
+    });
 
     axios[props.method](props.url, {
             'name': form.value.name,
             'surname': form.value.surname,
-            'phones': nonEmptyPhones,
+            'phones': form.value.phones,
         }
     )
         .then((res) => {
@@ -33,7 +34,6 @@ function createEmployee() {
 
 function addPhoneField() {
     form.value.phones.push('');
-    applyMask(form.value.phones.length - 1);
 }
 
 function removePhoneField(index) {
@@ -42,18 +42,6 @@ function removePhoneField(index) {
     }
 }
 
-function applyMask(index) {
-    const phoneInput = document.getElementById(`phones${index}`);
-    if (phoneInput) {
-        IMask(phoneInput, {
-            mask: '+{38}(000)000-00-00',
-        });
-    }
-}
-
-onMounted(() => {
-    applyMask(0);
-});
 </script>
 
 <template>
@@ -97,8 +85,8 @@ onMounted(() => {
                      @click.prevent="removePhoneField(index)">
                     <i class="fa-solid fa-minus"></i>
                 </div>
+                <div class="text-red-600 mb-5" v-if="form.errors[`phones.${index}`]?.[0]">{{ form.errors[`phones.${index}`]?.[0] }}</div>
             </div>
-            <div class="text-red-600 mb-5" v-if="form.errors.phones">{{ form.errors['phones'][0]}}</div>
         </div>
     </div>
 </template>

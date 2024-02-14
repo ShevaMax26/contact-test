@@ -5,7 +5,7 @@ namespace Sheva\Contacts\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sheva\Contacts\Helpers\ClearPhone;
-use Sheva\Contacts\Http\Requests\Employee\StoreRequest;
+use Sheva\Contacts\Http\Requests\Employee\EmployeeRequest;
 use Sheva\Contacts\Http\Resources\EmployeeResource;
 use Sheva\Contacts\Models\Employee;
 use Sheva\Contacts\Models\Phone;
@@ -26,7 +26,7 @@ class EmployeeController extends Controller
         ];
     }
 
-    public function store(StoreRequest $request)
+    public function store(EmployeeRequest $request)
     {
         $data = $request->validated();
 
@@ -51,10 +51,12 @@ class EmployeeController extends Controller
         return EmployeeResource::make($employee);
     }
 
-    public function update(StoreRequest $request, int $id)
+    public function update(EmployeeRequest $request, int $id)
     {
         $employee = Employee::find($id);
+
         $data = $request->validated();
+        $employee->update($request->validated());
 
         $employee->phones()->delete();
 

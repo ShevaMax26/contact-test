@@ -4,7 +4,7 @@ namespace Sheva\Contacts\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class EmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
             'name' => 'required|string',
             'surname' => 'required|string',
             'phones' => 'required|array',
-            'phones.*' => 'required|string',
+            'phones.*' => 'required|numeric',
         ];
     }
 

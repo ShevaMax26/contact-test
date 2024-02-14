@@ -7,12 +7,6 @@ const props = defineProps({
     currentPage: Number,
 })
 
-onMounted(() => {
-    console.log(props.total)
-    console.log(props.perPage)
-    console.log(props.currentPage)
-});
-
 const totalPages = computed(() => Math.ceil(props.total / props.perPage));
 
 const paginationLinks = computed(() => {
