@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
             'name' => 'required|string',
             'surname' => 'required|string',
             'phones' => 'required|array',
+            'phones.*' => 'required|string',
         ];
     }
 

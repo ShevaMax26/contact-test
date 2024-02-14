@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted} from 'vue'
+import IMask from 'imask';
 
 const emit = defineEmits(['addedNewEmployee']);
 
@@ -35,6 +36,7 @@ function createEmployee() {
 
 function addPhoneField() {
     form.value.phones.push('');
+    applyMask(form.value.phones.length - 1);
 }
 
 function removePhoneField(index) {
@@ -42,6 +44,19 @@ function removePhoneField(index) {
         form.value.phones.splice(index, 1);
     }
 }
+
+function applyMask(index) {
+    const phoneInput = document.getElementById(`phones${index}`);
+    if (phoneInput) {
+        IMask(phoneInput, {
+            mask: '+{38}(000)000-00-00',
+        });
+    }
+}
+
+onMounted(() => {
+    applyMask(0);
+});
 </script>
 
 <template>

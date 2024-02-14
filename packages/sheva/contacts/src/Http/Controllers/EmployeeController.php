@@ -4,6 +4,7 @@ namespace Sheva\Contacts\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Sheva\Contacts\Helpers\ClearPhone;
 use Sheva\Contacts\Http\Requests\Employee\StoreRequest;
 use Sheva\Contacts\Http\Resources\EmployeeResource;
 use Sheva\Contacts\Models\Employee;
@@ -11,7 +12,7 @@ use Sheva\Contacts\Models\Phone;
 
 class EmployeeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $employees = Employee::with('phones')
             ->orderBy('created_at', 'desc')
@@ -33,17 +34,12 @@ class EmployeeController extends Controller
 
         foreach ($data['phones'] as $phone) {
             $employee->phones()->create([
-                'phone' => $phone,
+                'phone' => ClearPhone::clear($phone),
             ]);
         }
 
         $employee->load('phones');
 
         return EmployeeResource::make($employee);
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

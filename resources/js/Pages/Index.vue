@@ -80,7 +80,7 @@ onMounted(() => {
                 <tr v-for="employee in employees">
                     <td>{{ employee.name }}</td>
                     <td>{{ employee.surname }}</td>
-                    <td><span v-for="phone in employee.phones">0{{ phone }}; </span></td>
+                    <td><span v-for="phone in employee.phones">+{{ phone }}; </span></td>
                 </tr>
             </table>
             <div class="flex justify-around">
