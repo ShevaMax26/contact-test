@@ -71,7 +71,7 @@ function removePhoneField(index) {
                 <div class="form__phones">
                     <div class="form__group form-phones__group">
                         <input
-                            type="text"
+                            type="number"
                             :id="'phones' + index"
                             name="phones"
                             class="form-input form__input"
